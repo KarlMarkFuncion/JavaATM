@@ -3,8 +3,7 @@ public class CashDispenser
     private final static int INITIAL_COUNT = 500;
     private int count;
 
-    public CashDispenser();
-    {
+    public CashDispenser() {
         count = INITIAL_COUNT;
     }
 

@@ -1,5 +1,3 @@
-package Midterm;
-
 public class ATM {
 	
 	private boolean UserAuthenticated;
@@ -100,8 +98,7 @@ public class ATM {
 		return keypad.getInput();
 	}
 	
-	private Transacntion createTransaction(int type) {
-		
+	private Transaction createTransaction(int type) {		
 		Transaction temp = null ;
 		
 		switch(type) {

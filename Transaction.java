@@ -4,8 +4,7 @@ public class Transaction {
 	private Screen screen;
 	private BankDatabase bankdatabase;
 	
-	public Transaction(int userAccountNumber, Screen atmScreen, BankDaatabase atmBankDatabase) {
-		
+	public Transaction(int userAccountNumber, Screen atmScreen, BankDatabase atmBankDatabase) {
 		accountNumber = userAccountNUmber;
 		screen = atmScreen;
 		bankDatabase = atmBankDatabase;
