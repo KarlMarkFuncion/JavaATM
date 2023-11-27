@@ -3,7 +3,7 @@ public class ATM {
 	private boolean UserAuthenticated;
 	private int currentAccountNumber;
 	private Screen screen;
-	private keypad keypad;
+	private Keypad keypad;
 	private CashDispenser cashDispenser;
 	private DepositSlot depositSlot;
 	private BankDatabase bankDatabase;
@@ -18,7 +18,7 @@ public class ATM {
 		UserAuthenticated = false;
 		currentAccountNumber = 0;
 		screen = new Screen();
-		keypad = new keypad();
+		keypad = new Keypad();
 		cashDispenser = new CashDispenser();
 		depositSlot = new DepositSlot();
 		bankDatabase = new BankDatabase();
@@ -54,39 +54,29 @@ public class ATM {
 	}
 	
 	private void performTransactions() {
-		Transcation currentTransaction = null;
-		
-		boolean userExited = false;
-		
-		while(!userExited) {
-			
-			int mainMenuSelection = displayMainMenu();
-			
-			
-			switch(mainMenuSelection) {
-			
-			case BALANCE_INQUIRY:
-			case WITHDRAWAL :
-			case DEPOSIT:
-				
-				currentTransaction = createTransaction(mainMenuSelection);
-				
-				currentTransaction.execute();
-				break;
-				
-			case EXIT:
-				screen.displayMessageLine("\nExiting the system...");
-				userExited = true ; 
-				break;
-				
-			default:
-				screen.displayMessageLine("\nYou did not enter a valid selection. Try again");
-				break;
-				
-				
-			}
-		}
-	}
+        Transaction currentTransaction = null;
+        boolean userExited = false;
+
+        while (!userExited) {
+            int mainMenuSelection = displayMainMenu();
+
+            switch (mainMenuSelection) {
+                case BALANCE_INQUIRY:
+                case WITHDRAWAL:
+                case DEPOSIT:
+                    currentTransaction = createTransaction(mainMenuSelection);
+                    currentTransaction.execute();
+                    break;
+                case EXIT:
+                    screen.displayMessageLine("\nExiting the system...");
+                    userExited = true;
+                    break;
+                default:
+                    screen.displayMessageLine("\nYou did not enter a valid selection. Try again");
+                    break;
+            }
+        }
+    }
 	
 	private int displayMainMenu() {
 		screen.displayMessageLine("\nMain menu:");
@@ -98,19 +88,21 @@ public class ATM {
 		return keypad.getInput();
 	}
 	
-	private Transaction createTransaction(int type) {		
-		Transaction temp = null ;
-		
-		switch(type) {
-		case BALANCE_INQUIRY:
-			temp = new BalanceInquiry(currentAccountNumber, screen, bankDatabase);
-			break;
-		case WITHDRAWAL:
-			temp = new Withdrawal(currentAccountNumber,screen,bankDatabase,keypad,cashDispenser);
-		case DEPOSIT:
-			temp = new Deposit(currentAccountNumber, screen,bankDatabase, keypad,depositSlot);
-			
-		}
-		return temp;
-	}
+	 private Transaction createTransaction(int type) {
+        Transaction temp = null;
+
+        switch (type) {
+            case BALANCE_INQUIRY:
+                temp = new BalanceInquiry(currentAccountNumber, screen, bankDatabase);
+                break;
+            case WITHDRAWAL:
+                temp = new Withdrawal(currentAccountNumber, screen, bankDatabase, keypad, cashDispenser);
+                break;
+            case DEPOSIT:
+                temp = new Deposit(currentAccountNumber, screen, bankDatabase, keypad, depositSlot);
+                break;
+        }
+
+        return temp;
+    }
 }

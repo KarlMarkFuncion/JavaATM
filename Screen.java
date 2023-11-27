@@ -1,5 +1,3 @@
-package Midterm;
-
 public class Screen {
 	
 	public void displayMessage(String message) {
